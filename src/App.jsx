@@ -1,5 +1,5 @@
 import './App.css';
-import StudentDoubtForm from './components/StudentDoubtForm'
+import StudentDoubtForm from './pages/StudentDoubtForm'
 import DoubtList from './pages/DoubtList'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 function App() {
