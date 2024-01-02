@@ -9,7 +9,6 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     function handleClickSignout(){
-        console.log(auth);
         signOut(auth).then(() => {
             alert("signedout successfully")
             navigate('/student-login')
