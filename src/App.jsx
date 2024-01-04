@@ -13,7 +13,6 @@ function App() {
     <BrowserRouter>
       <Routes>
           <Route element={<ProtectedRoute/>}>
-            <Route path='/student-dashboard' element={<StudentDashboard/>}></Route>
             <Route path='/' element={<StudentDoubtForm/>}></Route>
           </Route>
           <Route path='/mentor' element={<DoubtList/>}></Route>
