@@ -31,6 +31,10 @@ const StudentSignupForm = () => {
         setEmail(''); setName(''); setSquad(''); setPassword(''); setCnfPassword('')
     }
 
+    function handleClickLogin(){
+      navigate('/student-login')
+    }
+
   return (
     <div className={styles.mainContainer}>
       <input type="text" placeholder='email' value={email} onChange={(e)=>setEmail(e.target.value)}/>
@@ -39,6 +43,7 @@ const StudentSignupForm = () => {
       <input type="password" placeholder='password' value={password} onChange={(e)=>setPassword(e.target.value)}/>
       <input type="password" placeholder='confirm password' value={cnfPassword} onChange={(e)=>setCnfPassword(e.target.value)}/>
       <button onClick={handleClickSignup}>Signup</button>
+      <button onClick={handleClickLogin}>Login Page</button>
     </div>
   )
 }

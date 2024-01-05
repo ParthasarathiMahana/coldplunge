@@ -15,14 +15,14 @@ const DoubtForm = () => {
     const [mode, setMode] = useState('')
 
     async function handleSubmit(){
-        console.log(name, batch, subject, topic, doubt, mode);
+        // console.log(name, batch, subject, topic, doubt, mode);
         await addDoc(collection(db, "doubts"), {
             student: name,
             date: new Date(),
             doubt,
             subject,
             topic,
-            "mode of resolution":mode
+            mode:mode
           });
           setName('')
           setBatch('')

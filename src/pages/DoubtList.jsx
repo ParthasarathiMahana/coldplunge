@@ -1,5 +1,5 @@
 import React from 'react'
-import { addDoc, collection, setDoc, doc, getDocs, onSnapshot, deleteDoc} from 'firebase/firestore'
+import { addDoc, collection, setDoc, doc, getDocs, onSnapshot, deleteDoc, getDoc, updateDoc} from 'firebase/firestore'
 import { db } from '../firebase/config'
 import { useEffect, useState } from 'react'
 import styles from '../style/doubtList.module.css'
@@ -9,31 +9,56 @@ const DoubtList = () => {
     const [doubtListData, setDoubtListData] = useState([])
 
     useEffect(()=>{
-        const doubtList = onSnapshot(collection(db, "doubts"), (snapshot)=>{
+        onSnapshot(collection(db, "doubts"), (snapshot)=>{
             const myData = snapshot.docs.map((data)=>{
-                console.log("inside map",data.data());
+                // console.log("inside map",data.data());
                 return {name: data.data().student, 
-                    // date2: data.data().date,
                     date: new Date(data.data().date.seconds * 1000 + Math.floor(data.data().date.nanoseconds / 1e6)),
                     topic: data.data().topic, 
-                    doubt: data.data().doubt}
+                    doubt: data.data().doubt,
+                    mode: data.data().mode,
+                    id: data.id,
+                    acknowledgement: data.data().acknowledgement? data.data().acknowledgement:false}
             })
             setDoubtListData(myData)    
-            console.log("outside map",doubtList);
         })
-    },[])
+    })
+
+    async function handleClickAcknowledge(index){
+        const docRef = doc(db, "doubts", doubtListData[index].id)
+        try {
+            doubtListData[index].acknowledgement = !doubtListData[index].acknowledgement;
+            await updateDoc(docRef, doubtListData[index])
+          } catch (e) {
+            console.log("Error getting cached document:", e);
+          }
+    }
 
   return (
     <div>
         <div>
+        <div className={styles.listItem}>
+                    <h3>Student</h3>
+                    <h3>Topic</h3>
+                    <h3>Doubt</h3>
+                    <h3>Mode of reply</h3>
+                    <h3>Time of doubt raised</h3>
+                    <h3>Status</h3>
+
+                 </div>
             {doubtListData.map((data, index)=>{
-                return <div key={index} className={styles.listItem}>
-                    <div>{data.name}</div>
-                    <div>{data.topic}</div>
-                    <div>{data.doubt}</div>
-                    <div>{data.date.getHours()>12 ? data.date.getHours()-12+" : "+data.date.getMinutes()+" PM" : data.date.getHours()+" : "+data.date.getMinutes()+" AM"}</div>
-                    <button>Aknowledge</button>
-                </div>
+                return (
+                    <div style={{display:"flex"}} key={index}>
+                        <div className={styles.listItem}>
+                            <div style={{width:"20%"}}>{data.name}</div>
+                            <div style={{width:"20%"}}>{data.topic}</div>
+                            <div style={{width:"20%"}}>{data.doubt}</div>
+                            <div style={{width:"20%"}}>{data.mode}</div>
+                            <div style={{width:"20%"}}>{data.date.getHours()>12 ? data.date.getHours()-12+" : "+data.date.getMinutes()+" PM" : data.date.getHours()+" : "+data.date.getMinutes()+" AM"}</div>
+                        </div>
+                        {data.acknowledgement?<button onClick={()=>handleClickAcknowledge(index)} style={{backgroundColor:"green"}}>Aknowledged</button>:<button onClick={()=>handleClickAcknowledge(index)} style={{backgroundColor:"red"}}>Aknowledge</button>}
+                    </div>
+                )
             })}
         </div>
     </div>

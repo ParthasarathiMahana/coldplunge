@@ -6,6 +6,7 @@ import StudentLogin from './pages/StudentLogin';
 import StudentDashboard from './pages/StudentDashboard';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRouteMentor from './components/ProtectedRouteMentor';
 function App() {
 
   return (
@@ -13,10 +14,13 @@ function App() {
     <BrowserRouter>
       <Routes>
           <Route element={<ProtectedRoute/>}>
+            {/* <Route path='/student-dashboard' element={<StudentDashboard/>}></Route> */}
             <Route path='/' element={<StudentDoubtForm/>}></Route>
           </Route>
-          <Route path='/mentor' element={<DoubtList/>}></Route>
-          <Route path='/signup' element={<StudentSignupForm/>}></Route>
+          <Route element={<ProtectedRouteMentor/>}>
+            <Route path='/mentor' element={<DoubtList/>}></Route>
+          </Route>
+          <Route path='/student-signup' element={<StudentSignupForm/>}></Route>
           <Route path='/student-login' element={<StudentLogin/>}></Route>
       </Routes>
     </BrowserRouter>

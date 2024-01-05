@@ -1,6 +1,6 @@
 .listItem{
     display: flex;
-    width: 70%;
+    width: 90%;
     justify-content: space-between;
     margin-bottom: 0.5rem;
 }

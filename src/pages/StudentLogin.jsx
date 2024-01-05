@@ -43,14 +43,19 @@ const StudentLogin = () => {
         });
     }
 
+    function handleClickSignup(){
+      navigate('/student-signup')
+    }
+
   return (
     <>
       {isAuth ? <div className={styles.mainContainer}>
-        <input type="text" value={email} onChange={e=>setEmail(e.target.value)}/>
-        {showPassword?<input type="text" value={password} onChange={e=>setPassword(e.target.value)}/>
-        :<input type="password" value={password} onChange={e=>setPassword(e.target.value)}/>}
+        <input type="text" value={email} onChange={e=>setEmail(e.target.value)} placeholder='email'/>
+        {showPassword?<input type="text" value={password} onChange={e=>setPassword(e.target.value)} placeholder='password'/>
+        :<input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder='password'/>}
         <button onClick={toggleShowPassword}>show password</button>
         <button onClick={handleClickLogin}>Login</button>
+        <button onClick={handleClickSignup}>Signup Page</button>
       </div> : null}
     </>
   )
