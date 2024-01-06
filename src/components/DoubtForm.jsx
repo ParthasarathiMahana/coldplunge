@@ -4,10 +4,11 @@ import Navbar from '../components/Navbar'
 import { addDoc, collection, setDoc, doc, getDocs, onSnapshot, deleteDoc} from 'firebase/firestore'
 import {db} from '../firebase/config'
 import { useState } from 'react'
+import MyDoubts from './MyDoubts'
 
-const DoubtForm = () => {
+const DoubtForm = (props) => {
 
-    const [name, setName] = useState('')
+    const [name, setName] = useState(props.email)
     const [batch, setBatch] = useState('')
     const [subject, setSubject] = useState('')
     const [topic, setTopic] = useState('')
@@ -24,7 +25,6 @@ const DoubtForm = () => {
             topic,
             mode:mode
           });
-          setName('')
           setBatch('')
           setSubject('')
           setTopic('')
@@ -36,7 +36,7 @@ const DoubtForm = () => {
     <div>
         <Navbar/>
         <div className={styles.mainContainer}>
-          <input type="text" placeholder='Name' value={name} onChange={e=>setName(e.target.value)}/>
+          <input type="text" placeholder='Name' value={name} onChange={e=>setName(e.target.value)} disabled/>
           <input type="text" placeholder='Enter batch number' onChange={e=>setBatch(e.target.value)} value={batch}/>
           <input type="text" placeholder='Subject' onChange={e=>setSubject(e.target.value)} value={subject}/>
           <input type="text" placeholder='Topic' onChange={e=>setTopic(e.target.value)} value={topic}/>
@@ -44,6 +44,7 @@ const DoubtForm = () => {
           <input type="text" placeholder='Need 1 on 1, or text reply' onChange={e=>setMode(e.target.value)} value={mode}/>
           <button onClick={handleSubmit}>Raise the doubt</button>
         </div>
+        <MyDoubts email = {name} />
     </div>
   )
 }

@@ -12,6 +12,7 @@ const ProtectedRoute = () => {
     const auth = getAuth()
     const [isAuthChecked, setIsAuthChecked] = useState(false)
     const [isMentor, setIsMentor] = useState(false)
+    const [userEmail, setUserEmail] = useState('')
 
     // const debouncedNavigate = debounce((path)=>navigate(path), 500)
 
@@ -24,13 +25,13 @@ const ProtectedRoute = () => {
         else{
           // debouncedNavigate('/')
           // console.log(myuser);
-          const userEmail = myuser.email;
+          setUserEmail(myuser.email);
           const emailRegex = /@gmail\.community$/;
           const isValid = emailRegex.test(userEmail);
           if(isValid){
-            setIsMentor(true)
-          }else{
             setIsMentor(false)
+          }else{
+            setIsMentor(true)
           }
           setIsAuthChecked(true)
         }
@@ -39,7 +40,7 @@ const ProtectedRoute = () => {
 
   return (
     <div>
-      {isAuthChecked ? isMentor ? <DoubtList/> : <DoubtForm/> : <StudentLogin/>}
+      {isAuthChecked ? isMentor ? <DoubtList/> : <DoubtForm email={userEmail}/> : <StudentLogin/>}
     </div>
   )
 }

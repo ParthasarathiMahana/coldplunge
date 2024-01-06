@@ -10,6 +10,7 @@ const StudentDoubtForm = () => {
 
     // const navigate = useNavigate()
     const [isAuthChecked, setIsAuthChecked] = useState(false)
+    const [emailOfUser, setEmailOfUser] = useState('')
     // const debouncedNavigate = debounce((path)=>navigate(path), 500)
     const auth = getAuth()
 
@@ -17,6 +18,8 @@ const StudentDoubtForm = () => {
       onAuthStateChanged(auth, (myuser) => {
         if (myuser){
           setIsAuthChecked(true)
+          setEmailOfUser(myuser.email)
+          console.log(myuser);
         }
         else{
           setIsAuthChecked(false)
@@ -26,7 +29,7 @@ const StudentDoubtForm = () => {
 
   return (
     <>
-      {isAuthChecked ? <DoubtForm/> : <StudentLogin/>}
+      {isAuthChecked ? <DoubtForm email={emailOfUser}/> : <StudentLogin/>}
     </>
   )
 }

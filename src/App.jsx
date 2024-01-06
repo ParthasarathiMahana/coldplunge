@@ -3,7 +3,6 @@ import StudentDoubtForm from './pages/StudentDoubtForm'
 import DoubtList from './pages/DoubtList'
 import StudentSignupForm from './pages/StudentSignupForm';
 import StudentLogin from './pages/StudentLogin';
-// import StudentDashboard from './pages/StudentDashboard';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 function App() {
@@ -13,7 +12,6 @@ function App() {
     <BrowserRouter>
       <Routes>
           <Route element={<ProtectedRoute/>}>
-            {/* <Route path='/student-dashboard' element={<StudentDashboard/>}></Route> */}
             <Route path='/' element={<StudentDoubtForm/>}></Route>
             <Route path='/mentor' element={<DoubtList/>}></Route>
           </Route>
