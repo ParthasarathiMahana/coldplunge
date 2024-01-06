@@ -3,6 +3,7 @@ import { addDoc, collection, setDoc, doc, getDocs, onSnapshot, deleteDoc, getDoc
 import { db } from '../firebase/config'
 import { useEffect, useState } from 'react'
 import styles from '../style/doubtList.module.css'
+import Navbar from '../components/Navbar'
 
 const DoubtList = () => {
 
@@ -36,8 +37,9 @@ const DoubtList = () => {
 
   return (
     <div>
+        <Navbar/>
         <div>
-        <div className={styles.listItem}>
+            <div className={styles.listItem}>
                     <h3>Student</h3>
                     <h3>Topic</h3>
                     <h3>Doubt</h3>
@@ -45,7 +47,7 @@ const DoubtList = () => {
                     <h3>Time of doubt raised</h3>
                     <h3>Status</h3>
 
-                 </div>
+            </div>
             {doubtListData.map((data, index)=>{
                 return (
                     <div style={{display:"flex"}} key={index}>
