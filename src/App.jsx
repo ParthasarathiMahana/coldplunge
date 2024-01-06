@@ -3,7 +3,7 @@ import StudentDoubtForm from './pages/StudentDoubtForm'
 import DoubtList from './pages/DoubtList'
 import StudentSignupForm from './pages/StudentSignupForm';
 import StudentLogin from './pages/StudentLogin';
-import StudentDashboard from './pages/StudentDashboard';
+// import StudentDashboard from './pages/StudentDashboard';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import ProtectedRouteMentor from './components/ProtectedRouteMentor';
