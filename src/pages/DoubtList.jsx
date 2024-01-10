@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar'
 const DoubtList = () => {
 
     const [doubtListData, setDoubtListData] = useState([])
+    const [textReply, setTextReply] = useState(false)
 
     useEffect(()=>{
         onSnapshot(collection(db, "doubts"), (snapshot)=>{

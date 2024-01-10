@@ -3,6 +3,7 @@ import styles from '../style/studentdoubtForm.module.css'
 import { useState, useEffect } from 'react'
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar'
 
 
 const StudentLogin = () => {

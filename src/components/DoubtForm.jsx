@@ -13,10 +13,18 @@ const DoubtForm = (props) => {
     const [subject, setSubject] = useState('')
     const [topic, setTopic] = useState('')
     const [doubt, setDoubt] = useState('')
-    const [mode, setMode] = useState('')
+    const [mode, setMode] = useState('textReply')
 
     async function handleSubmit(){
         // console.log(name, batch, subject, topic, doubt, mode);
+        let arrayOfStates = [name, batch, subject, topic, doubt, mode]
+
+        for(let i of arrayOfStates){
+          if(i == ''){
+            return alert('you need to enter all the values')
+          }
+        }
+        
         await addDoc(collection(db, "doubts"), {
             student: name,
             date: new Date(),
@@ -32,6 +40,11 @@ const DoubtForm = (props) => {
           setMode('')
     }
 
+    function handleSelectOptionChange(e){
+      console.log(e.target.value);
+      setMode(e.target.value)
+    }
+
   return (
     <div>
         <Navbar/>
@@ -41,7 +54,11 @@ const DoubtForm = (props) => {
           <input type="text" placeholder='Subject' onChange={e=>setSubject(e.target.value)} value={subject}/>
           <input type="text" placeholder='Topic' onChange={e=>setTopic(e.target.value)} value={topic}/>
           <textarea name="" id="" cols="30" rows="10" placeholder='Explain doubt in detail' onChange={e=>setDoubt(e.target.value)} value={doubt}></textarea>
-          <input type="text" placeholder='Need 1 on 1, or text reply' onChange={e=>setMode(e.target.value)} value={mode}/>
+          {/* <input type="text" placeholder='Need 1 on 1, or text reply' onChange={e=>setMode(e.target.value)} value={mode}/> */}
+          <select name="modeOfReply" onChange={handleSelectOptionChange}>
+            <option value="textReply">Text reply</option>
+            <option value="oneOnOne">Need 1 on 1</option>
+          </select>
           <button onClick={handleSubmit}>Raise the doubt</button>
         </div>
         <MyDoubts email = {name} />
