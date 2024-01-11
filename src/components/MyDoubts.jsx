@@ -29,6 +29,7 @@ const MyDoubts = (props) => {
             <div>{item.topic}</div>
             <div>{item.doubt}</div>
             <div>{item.acknowledgement ? "acknowledged" : "yet to see"}</div>
+            {item.answer ? item.answer : null}
           </div>
         )
       })}

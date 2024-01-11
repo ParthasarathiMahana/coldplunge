@@ -4,6 +4,7 @@ import { db } from '../firebase/config'
 import { useEffect, useState } from 'react'
 import styles from '../style/doubtList.module.css'
 import Navbar from '../components/Navbar'
+import ReplyForm from '../components/ReplyForm'
 
 const DoubtList = () => {
 
@@ -51,15 +52,18 @@ const DoubtList = () => {
             </div>
             {doubtListData.map((data, index)=>{
                 return (
-                    <div style={{display:"flex"}} key={index}>
-                        <div className={styles.listItem}>
-                            <div style={{width:"20%"}}>{data.name}</div>
-                            <div style={{width:"20%"}}>{data.topic}</div>
-                            <div style={{width:"20%"}}>{data.doubt}</div>
-                            <div style={{width:"20%"}}>{data.mode}</div>
-                            <div style={{width:"20%"}}>{data.date.getHours()>12 ? data.date.getHours()-12+" : "+data.date.getMinutes()+" PM" : data.date.getHours()+" : "+data.date.getMinutes()+" AM"}</div>
+                    <div  key={index}>
+                        <div style={{display:"flex"}}>
+                            <div className={styles.listItem}>
+                                <div style={{width:"20%"}}>{data.name}</div>
+                                <div style={{width:"20%"}}>{data.topic}</div>
+                                <div style={{width:"20%"}}>{data.doubt}</div>
+                                <div style={{width:"20%"}}>{data.mode}</div>
+                                <div style={{width:"20%"}}>{data.date.getHours()>12 ? data.date.getHours()-12+" : "+data.date.getMinutes()+" PM" : data.date.getHours()+" : "+data.date.getMinutes()+" AM"}</div>
+                            </div>
+                            {data.acknowledgement?<button onClick={()=>handleClickAcknowledge(index)} style={{backgroundColor:"green"}}>Aknowledged</button>:<button onClick={()=>handleClickAcknowledge(index)} style={{backgroundColor:"red"}}>Aknowledge</button>}
                         </div>
-                        {data.acknowledgement?<button onClick={()=>handleClickAcknowledge(index)} style={{backgroundColor:"green"}}>Aknowledged</button>:<button onClick={()=>handleClickAcknowledge(index)} style={{backgroundColor:"red"}}>Aknowledge</button>}
+                        {data.mode === "textReply"? <ReplyForm id = {data.id}/> : null}
                     </div>
                 )
             })}
