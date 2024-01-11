@@ -8,7 +8,7 @@ import MyDoubts from './MyDoubts'
 
 const DoubtForm = (props) => {
 
-    const [name, setName] = useState(props.email)
+    const [email, setEmail] = useState(props.email)
     const [batch, setBatch] = useState('')
     const [subject, setSubject] = useState('')
     const [topic, setTopic] = useState('')
@@ -17,7 +17,7 @@ const DoubtForm = (props) => {
 
     async function handleSubmit(){
         // console.log(name, batch, subject, topic, doubt, mode);
-        let arrayOfStates = [name, batch, subject, topic, doubt, mode]
+        let arrayOfStates = [email, batch, subject, topic, doubt, mode]
 
         for(let i of arrayOfStates){
           if(i == ''){
@@ -26,7 +26,7 @@ const DoubtForm = (props) => {
         }
         
         await addDoc(collection(db, "doubts"), {
-            student: name,
+            email: email,
             date: new Date(),
             doubt,
             subject,
@@ -49,7 +49,7 @@ const DoubtForm = (props) => {
     <div>
         <Navbar/>
         <div className={styles.mainContainer}>
-          <input type="text" placeholder='Name' value={name} onChange={e=>setName(e.target.value)} disabled/>
+          <input type="text" placeholder='Name' value={email} onChange={e=>setName(e.target.value)} disabled/>
           <input type="text" placeholder='Enter batch number' onChange={e=>setBatch(e.target.value)} value={batch}/>
           <input type="text" placeholder='Subject' onChange={e=>setSubject(e.target.value)} value={subject}/>
           <input type="text" placeholder='Topic' onChange={e=>setTopic(e.target.value)} value={topic}/>

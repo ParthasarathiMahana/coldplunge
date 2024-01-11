@@ -9,13 +9,12 @@ import ReplyForm from '../components/ReplyForm'
 const DoubtList = () => {
 
     const [doubtListData, setDoubtListData] = useState([])
-    const [textReply, setTextReply] = useState(false)
 
     useEffect(()=>{
         onSnapshot(collection(db, "doubts"), (snapshot)=>{
             const myData = snapshot.docs.map((data)=>{
                 // console.log("inside map",data.data());
-                return {name: data.data().student, 
+                return {name: data.data().email, 
                     date: new Date(data.data().date.seconds * 1000 + Math.floor(data.data().date.nanoseconds / 1e6)),
                     topic: data.data().topic, 
                     doubt: data.data().doubt,
@@ -25,13 +24,14 @@ const DoubtList = () => {
             })
             setDoubtListData(myData)    
         })
-    })
+    },[])
 
     async function handleClickAcknowledge(index){
         const docRef = doc(db, "doubts", doubtListData[index].id)
         try {
             doubtListData[index].acknowledgement = !doubtListData[index].acknowledgement;
-            await updateDoc(docRef, doubtListData[index])
+            // await updateDoc(docRef, doubtListData[index])
+            await setDoc(docRef, {acknowledgement: doubtListData[index].acknowledgement}, {merge: true})
           } catch (e) {
             console.log("Error getting cached document:", e);
           }
@@ -48,7 +48,6 @@ const DoubtList = () => {
                     <h3>Mode of reply</h3>
                     <h3>Time of doubt raised</h3>
                     <h3>Status</h3>
-
             </div>
             {doubtListData.map((data, index)=>{
                 return (

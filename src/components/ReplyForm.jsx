@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { db } from '../firebase/config'
-import { addDoc, collection, onSnapshot, doc, getDoc, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, onSnapshot, doc, setDoc, updateDoc } from 'firebase/firestore'
 
 const ReplyForm = (props) => {
     const [reply, setReply] = useState('')
@@ -11,10 +11,11 @@ const ReplyForm = (props) => {
             return alert("answer can not be empty")
         }
         const docRef = doc(db, "doubts", props.id)
-        const existingData = await getDoc(docRef)
-        let tempData = {...existingData.data()}
-        tempData.answer = reply
-        await updateDoc(docRef, tempData)
+        // const existingData = await getDoc(docRef)
+        // let tempData = {...existingData.data()}
+        // tempData.answer = reply
+        // await updateDoc(docRef, tempData)
+        await setDoc(docRef, {answer: reply}, {merge: true})
         setReply('')
     }
 
