@@ -40,32 +40,33 @@ const DoubtList = () => {
   return (
     <div>
         <Navbar/>
-        <div>
+        <div className={styles.mainContainer}>
             <div className={styles.listItem}>
-                    <h3>Student</h3>
-                    <h3>Topic</h3>
-                    <h3>Doubt</h3>
-                    <h3>Mode of reply</h3>
-                    <h3>Time of doubt raised</h3>
-                    <h3>Status</h3>
+                <h3>Student</h3>
+                <h3>Topic</h3>
+                <h3>Doubt</h3>
+                <h3>Mode of reply</h3>
+                <h3>Time of doubt raised</h3>
+                <h3>Status</h3>
             </div>
-            {doubtListData.map((data, index)=>{
-                return (
-                    <div  key={index}>
-                        <div style={{display:"flex"}}>
-                            <div className={styles.listItem}>
-                                <div style={{width:"20%"}}>{data.name}</div>
-                                <div style={{width:"20%"}}>{data.topic}</div>
-                                <div style={{width:"20%"}}>{data.doubt}</div>
-                                <div style={{width:"20%"}}>{data.mode}</div>
-                                <div style={{width:"20%"}}>{data.date.getHours()>12 ? data.date.getHours()-12+" : "+data.date.getMinutes()+" PM" : data.date.getHours()+" : "+data.date.getMinutes()+" AM"}</div>
+            <div className={styles.doubtContainer}>
+                {doubtListData.map((data, index)=>{
+                    return (
+                        <div  key={index} className={styles.doubtsWithReplyBox}>
+                            <div className={styles.doubtRow}>
+                                <div>{data.name}</div>
+                                <div>{data.topic}</div>
+                                <div>{data.doubt}</div>
+                                <div>{data.mode}</div>
+                                <div>{data.date.getHours()>12 ? data.date.getHours()-12+" : "+data.date.getMinutes()+" PM" : data.date.getHours()+" : "+data.date.getMinutes()+" AM"}</div>
+                                <div>{data.acknowledgement?<button onClick={()=>handleClickAcknowledge(index)} style={{backgroundColor:"green"}} className={styles.statBtn}>Aknowledged</button>:<button onClick={()=>handleClickAcknowledge(index)} style={{backgroundColor:"red"}} className={styles.statBtn}>Aknowledge</button>}
+                                </div>
                             </div>
-                            {data.acknowledgement?<button onClick={()=>handleClickAcknowledge(index)} style={{backgroundColor:"green"}}>Aknowledged</button>:<button onClick={()=>handleClickAcknowledge(index)} style={{backgroundColor:"red"}}>Aknowledge</button>}
+                            {data.mode === "textReply"? <ReplyForm id = {data.id}/> : null}
                         </div>
-                        {data.mode === "textReply"? <ReplyForm id = {data.id}/> : null}
-                    </div>
-                )
-            })}
+                    )
+                })}
+            </div>
         </div>
     </div>
   )
