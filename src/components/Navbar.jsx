@@ -1,24 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from '../style/navbar.module.css'
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const Navbar = () => {
 
-    const auth = getAuth();
-    const navigate = useNavigate();
+  const [authStat, setAuthStat] = useState(false)
 
-    function handleClickSignout(){
-        signOut(auth).then(() => {
-            alert("signedout successfully")
-            navigate('/student-login')
-        }).catch((error) => {
-        // An error happened.
-        });
+  useEffect(()=>{
+    if(getAuth().currentUser){
+      setAuthStat(true)
     }
+  })
+
+  const navigate = useNavigate();
+
+  function handleClickSignout(){
+    const auth = getAuth();
+    if(auth.currentUser){
+      signOut(auth).then(() => {
+        alert("signedout successfully")
+        setAuthStat(false)
+        navigate('/student-login')
+      }).catch((error) => {
+        // An error happened.
+      });
+    }
+  }
   return (
     <div className={styles.mainContainer}>
-      <button onClick={handleClickSignout}>Signout</button>
+      <h2>ColdPlunge</h2>
+      {authStat?<button onClick={handleClickSignout}>Signout</button>:null}
     </div>
   )
 }

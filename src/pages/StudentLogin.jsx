@@ -50,6 +50,7 @@ const StudentLogin = () => {
 
   return (
     <>
+      <Navbar/>
       {isAuth ? 
       <div className={styles.mainContainer}>
         <input type="text" value={email} onChange={e=>setEmail(e.target.value)} placeholder='email'/>

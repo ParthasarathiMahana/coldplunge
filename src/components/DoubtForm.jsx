@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../style/studentdoubtForm.module.css'
+import styles from '../style/doubtForm.module.css'
 import Navbar from '../components/Navbar'
 import { addDoc, collection, setDoc, doc, getDocs, onSnapshot, deleteDoc} from 'firebase/firestore'
 import {db} from '../firebase/config'
@@ -48,20 +48,20 @@ const DoubtForm = (props) => {
   return (
     <div>
         <Navbar/>
-        <div className={styles.mainContainer}>
+        <div className={styles.mainContainer} style={{marginTop:"-0.1rem"}}>
           <input type="text" placeholder='Name' value={email} onChange={e=>setName(e.target.value)} disabled/>
           <input type="text" placeholder='Enter batch number' onChange={e=>setBatch(e.target.value)} value={batch}/>
           <input type="text" placeholder='Subject' onChange={e=>setSubject(e.target.value)} value={subject}/>
           <input type="text" placeholder='Topic' onChange={e=>setTopic(e.target.value)} value={topic}/>
           <textarea name="" id="" cols="30" rows="10" placeholder='Explain doubt in detail' onChange={e=>setDoubt(e.target.value)} value={doubt}></textarea>
           {/* <input type="text" placeholder='Need 1 on 1, or text reply' onChange={e=>setMode(e.target.value)} value={mode}/> */}
-          <select name="modeOfReply" onChange={handleSelectOptionChange}>
+          <select name="modeOfReply" onChange={handleSelectOptionChange} style={{paddingLeft:"1rem"}}>
             <option value="textReply">Text reply</option>
             <option value="oneOnOne">Need 1 on 1</option>
           </select>
           <button onClick={handleSubmit}>Raise the doubt</button>
         </div>
-        <MyDoubts email = {name} />
+        <MyDoubts email = {email} />
     </div>
   )
 }
