@@ -3,6 +3,7 @@ import styles from '../style/form.module.css'
 import { useState } from 'react'
 import {getAuth, createUserWithEmailAndPassword} from "firebase/auth"
 import { useNavigate } from 'react-router-dom'
+import Navbar from '../components/Navbar'
 
 const StudentSignupForm = () => {
     const [email, setEmail] = useState('')
@@ -36,15 +37,18 @@ const StudentSignupForm = () => {
     }
 
   return (
-    <div className={styles.mainContainer}>
-      <input type="text" placeholder='email' value={email} onChange={(e)=>setEmail(e.target.value)}/>
-      <input type="text" placeholder='name' value={name} onChange={(e)=>setName(e.target.value)}/>
-      <input type="text" placeholder='squad number' value={squad} onChange={(e)=>setSquad(e.target.value)}/>
-      <input type="password" placeholder='password' value={password} onChange={(e)=>setPassword(e.target.value)}/>
-      <input type="password" placeholder='confirm password' value={cnfPassword} onChange={(e)=>setCnfPassword(e.target.value)}/>
-      <button onClick={handleClickSignup}>Signup</button>
-      <a onClick={handleClickLogin} className={styles.linkToSignupPage}>Go to signin page</a>
-    </div>
+    <>
+      <Navbar/>
+      <div className={styles.mainContainer}>
+        <input type="text" placeholder='email' value={email} onChange={(e)=>setEmail(e.target.value)}/>
+        <input type="text" placeholder='name' value={name} onChange={(e)=>setName(e.target.value)}/>
+        <input type="text" placeholder='squad number' value={squad} onChange={(e)=>setSquad(e.target.value)}/>
+        <input type="password" placeholder='password' value={password} onChange={(e)=>setPassword(e.target.value)}/>
+        <input type="password" placeholder='confirm password' value={cnfPassword} onChange={(e)=>setCnfPassword(e.target.value)}/>
+        <button onClick={handleClickSignup}>Signup</button>
+        <a onClick={handleClickLogin} className={styles.linkToSignupPage}>Go to signin page</a>
+      </div>
+    </>
   )
 }
 
