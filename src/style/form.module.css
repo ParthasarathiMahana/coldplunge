@@ -14,34 +14,49 @@
     margin-bottom:2%;
     height: 8%;
     font-size: 1rem;
+    border: none;
+    outline: 2px solid red;
+    font-weight: bold;
 }
 .mainContainer button{
     margin-bottom:5%;
     height: 8%;
     font-size: 1rem;
+    outline: 2px solid red;
+    border: none;
+    background-color: transparent;
+    font-weight: bold;
+    color: red;
+}
+.mainContainer button:hover{
+    background-color: red;
+    color: white;
 }
 .mainContainer button:hover{
     cursor: pointer;
 }
 .passwordSection{
-    width: 52%;
+    width: 51%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    /* align-items: center; */
     height: 9%;
     margin-bottom:8%;
+    /* border: 1px solid red; */
 }
 .passwordSection input{
     width: 80%;
-    height: 80%;
+    height: 95%;
 }
 .passwordSection button{
     width: 20%;
-    height: 100%;
+    height: 102%;
 }
 .linkToSignupPage{
     text-decoration: underline;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 .linkToSignupPage:hover{
     cursor: pointer;
+    color: red;
 }

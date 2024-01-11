@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../style/studentdoubtForm.module.css'
+import styles from '../style/form.module.css'
 import { useState } from 'react'
 import {getAuth, createUserWithEmailAndPassword} from "firebase/auth"
 import { useNavigate } from 'react-router-dom'
@@ -43,7 +43,7 @@ const StudentSignupForm = () => {
       <input type="password" placeholder='password' value={password} onChange={(e)=>setPassword(e.target.value)}/>
       <input type="password" placeholder='confirm password' value={cnfPassword} onChange={(e)=>setCnfPassword(e.target.value)}/>
       <button onClick={handleClickSignup}>Signup</button>
-      <button onClick={handleClickLogin}>Login Page</button>
+      <a onClick={handleClickLogin} className={styles.linkToSignupPage}>Go to signin page</a>
     </div>
   )
 }
