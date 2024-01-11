@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../style/studentdoubtForm.module.css'
+import styles from '../style/form.module.css'
 import { useState, useEffect } from 'react'
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
@@ -50,13 +50,16 @@ const StudentLogin = () => {
 
   return (
     <>
-      {isAuth ? <div className={styles.mainContainer}>
+      {isAuth ? 
+      <div className={styles.mainContainer}>
         <input type="text" value={email} onChange={e=>setEmail(e.target.value)} placeholder='email'/>
-        {showPassword?<input type="text" value={password} onChange={e=>setPassword(e.target.value)} placeholder='password'/>
-        :<input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder='password'/>}
-        <button onClick={toggleShowPassword}>show password</button>
+        <div className={styles.passwordSection}>
+          {showPassword?<input type="text" value={password} onChange={e=>setPassword(e.target.value)} placeholder='password'/>
+          :<input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder='password'/>}
+          <button onClick={toggleShowPassword}>{showPassword?"hide":"show"}</button>
+        </div>
         <button onClick={handleClickLogin}>Login</button>
-        <button onClick={handleClickSignup}>Signup Page</button>
+        <a onClick={handleClickSignup} className={styles.linkToSignupPage}>Go to signup page</a>
       </div> : null}
     </>
   )

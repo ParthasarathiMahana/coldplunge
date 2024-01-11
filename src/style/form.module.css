@@ -1,0 +1,47 @@
+.mainContainer{
+    border: 2px solid red;
+    height: 60vh;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    margin-left: 30vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.mainContainer input{
+    width: 50%;
+    margin-bottom:2%;
+    height: 8%;
+    font-size: 1rem;
+}
+.mainContainer button{
+    margin-bottom:5%;
+    height: 8%;
+    font-size: 1rem;
+}
+.mainContainer button:hover{
+    cursor: pointer;
+}
+.passwordSection{
+    width: 52%;
+    display: flex;
+    justify-content: space-between;
+    height: 9%;
+    margin-bottom:8%;
+}
+.passwordSection input{
+    width: 80%;
+    height: 80%;
+}
+.passwordSection button{
+    width: 20%;
+    height: 100%;
+}
+.linkToSignupPage{
+    text-decoration: underline;
+    font-size: 1rem;
+}
+.linkToSignupPage:hover{
+    cursor: pointer;
+}
