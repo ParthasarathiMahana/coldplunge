@@ -65,3 +65,20 @@
     cursor: pointer;
     color: red;
 }
+
+@media screen and (max-width: 415px){
+    .mainContainer{
+        height: 40vh;
+        width: 60%;
+        margin-left: 20%;
+    }
+    .mainContainer input{
+        width: 90%;
+    }
+    .passwordSection{
+        width: 91%;
+    }
+    .passwordSection button{
+        font-size: 0.8rem;
+    }
+}
