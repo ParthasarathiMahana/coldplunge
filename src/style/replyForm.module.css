@@ -1,0 +1,30 @@
+.formContainer{
+   flex-direction: column;
+   height: 50Vh;
+   align-items: center;
+   position: relative;
+   top: -5rem;
+   width: 40vw;
+   margin-left: 25vw;
+   padding-top: 1rem;
+   padding-bottom: 1rem;
+   background-color: rgb(145, 145, 145);
+}
+.formContainer button{
+    width: 15%;
+    height: 8%;
+    border: none;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    margin-top: 5px;
+}
+.formContainer button:hover{
+    cursor: pointer;
+    opacity: 0.9;
+}
+.formContainer textarea{
+    width: 60%;
+    height: 90%;
+    border: none;
+}

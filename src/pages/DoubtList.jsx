@@ -5,36 +5,52 @@ import { useEffect, useState } from 'react'
 import styles from '../style/doubtList.module.css'
 import Navbar from '../components/Navbar'
 import ReplyForm from '../components/ReplyForm'
+import { doubtActions, doubtSelector } from '../redux/reducers/doubtReducers'
+import { useDispatch, useSelector } from 'react-redux'
 
 const DoubtList = () => {
 
-    const [doubtListData, setDoubtListData] = useState([])
+    const dispatch = useDispatch();
+    const allDoubts = useSelector(doubtSelector);
+    const [visibility, setVisibility] = useState('none');
 
     useEffect(()=>{
         onSnapshot(collection(db, "doubts"), (snapshot)=>{
             const myData = snapshot.docs.map((data)=>{
-                // console.log("inside map",data.data());
+                const dateObj = new Date(data.data().date.seconds * 1000 + Math.floor(data.data().date.nanoseconds / 1e6))
                 return {name: data.data().email, 
-                    date: new Date(data.data().date.seconds * 1000 + Math.floor(data.data().date.nanoseconds / 1e6)),
+                    date: [dateObj.getHours(), dateObj.getMinutes()],
                     topic: data.data().topic, 
                     doubt: data.data().doubt,
                     mode: data.data().mode,
                     id: data.id,
                     acknowledgement: data.data().acknowledgement? data.data().acknowledgement:false}
             })
-            setDoubtListData(myData)    
+            dispatch(doubtActions.addDoubts(myData))
         })
     },[])
 
     async function handleClickAcknowledge(index){
-        const docRef = doc(db, "doubts", doubtListData[index].id)
+
+        console.log(allDoubts);
+
+        const docRef = doc(db, "doubts", allDoubts[index].id)
         try {
-            doubtListData[index].acknowledgement = !doubtListData[index].acknowledgement;
             // await updateDoc(docRef, doubtListData[index])
-            await setDoc(docRef, {acknowledgement: doubtListData[index].acknowledgement}, {merge: true})
-          } catch (e) {
+            await setDoc(docRef, {acknowledgement: !allDoubts[index].acknowledgement}, {merge: true})
+        } catch (e) {
             console.log("Error getting cached document:", e);
-          }
+        }
+    }
+
+    function handleClickReply(index){
+        if(visibility === 'none'){
+            setVisibility('flex')
+        }else{
+            setVisibility('none')
+        }
+
+        dispatch(doubtActions.activateDoubt(index))
     }
 
   return (
@@ -50,7 +66,7 @@ const DoubtList = () => {
                 <h3>Status</h3>
             </div>
             <div className={styles.doubtContainer}>
-                {doubtListData.map((data, index)=>{
+                {allDoubts.map((data, index)=>{
                     return (
                         <div  key={index} className={styles.doubtsWithReplyBox}>
                             <div className={styles.doubtRow}>
@@ -58,14 +74,15 @@ const DoubtList = () => {
                                 <div>{data.topic}</div>
                                 <div>{data.doubt}</div>
                                 <div>{data.mode}</div>
-                                <div>{data.date.getHours()>12 ? data.date.getHours()-12+" : "+data.date.getMinutes()+" PM" : data.date.getHours()+" : "+data.date.getMinutes()+" AM"}</div>
+                                <div>{data.date[0]>12 ? data.date[0]-12+" : "+data.date[1]+" PM" : data.date[0]+" : "+data.date[1]+" AM"}</div>
                                 <div>{data.acknowledgement?<button onClick={()=>handleClickAcknowledge(index)} style={{backgroundColor:"green"}} className={styles.statBtn}>Aknowledged</button>:<button onClick={()=>handleClickAcknowledge(index)} style={{backgroundColor:"red"}} className={styles.statBtn}>Aknowledge</button>}
+                                {data.mode === "textReply"?<button onClick={()=>handleClickReply(index)} style={{backgroundColor:"black", marginLeft:"5px"}} className={styles.statBtn}>Reply</button>:null}
                                 </div>
                             </div>
-                            {data.mode === "textReply"? <ReplyForm id = {data.id}/> : null}
                         </div>
                     )
                 })}
+                <ReplyForm visibility = {visibility}/>
             </div>
         </div>
     </div>
