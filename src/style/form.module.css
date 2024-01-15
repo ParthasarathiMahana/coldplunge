@@ -16,7 +16,7 @@
 
 .mainContainer input{
     width: 50%;
-    margin-bottom:2%;
+    margin-bottom:3%;
     height: 8%;
     font-size: 1rem;
     border: none;
@@ -66,7 +66,8 @@
     color: red;
 }
 
-@media screen and (max-width: 415px){
+/* mobile phones */
+@media screen and (min-width: 280px){
     .mainContainer{
         height: 40vh;
         width: 60%;
@@ -79,6 +80,66 @@
         width: 91%;
     }
     .passwordSection button{
-        font-size: 0.8rem;
+        font-size: 0.5rem;
+        font-weight: bold;
+    }
+    .linkToSignupPage{
+        text-decoration: underline;
+        font-size: 1rem;
+    }
+}
+
+/* tablets */
+@media only screen and (min-width: 601px){
+    .mainContainer{
+        height: 50vh;
+        width: 50%;
+        margin-left: 25%;
+    }
+    .mainContainer input{
+        width: 80%;
+    }
+    .mainContainer button{
+        margin-bottom:5%;
+        height: 7%;
+        width: 20%;
+    }
+    .passwordSection{
+        width: 81%;
+    }
+    .passwordSection button{
+        height: 98%;
+        font-size: 0.9rem;
+    }
+    .linkToSignupPage{
+        text-decoration: underline;
+        font-size: 1rem;
+    }
+}
+
+@media only screen and (min-width: 1285px){
+    .mainContainer{
+        height: 50vh;
+        width: 40%;
+        margin-left: 30%;
+    }
+    .mainContainer input{
+        width: 60%;
+    }
+    .mainContainer button{
+        margin-bottom:5%;
+        height: 7%;
+        width: 20%
+    }
+    .passwordSection{
+        width: 75%;
+    }
+    .passwordSection button{
+        height: 98%;
+        font-size: 0.9rem;
+    }
+    .linkToSignupPage{
+        text-decoration: underline;
+        font-size: 1rem;
     }
 }
