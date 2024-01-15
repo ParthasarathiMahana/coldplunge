@@ -38,7 +38,7 @@ const MyDoubts = (props) => {
             <div className={styles.topic}>{item.topic}</div>
             <div className={styles.doubt}>{item.doubt}</div>
             <div className={styles.ack}>{item.acknowledgement ? "acknowledged" : "not acknowledged"}</div>
-            <div className={styles.ans}>{item.answer ? item.answer : ""}</div>
+            <div className={styles.ans} >{item.answer ? item.answer : ""}</div>
           </div>
         )
       })}

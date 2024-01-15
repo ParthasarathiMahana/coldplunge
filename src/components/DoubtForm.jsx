@@ -59,7 +59,7 @@ const DoubtForm = (props) => {
             <option value="textReply">Text reply</option>
             <option value="oneOnOne">Need 1 on 1</option>
           </select>
-          <button onClick={handleSubmit}>Raise the doubt</button>
+          <button onClick={handleSubmit}>Raise doubt</button>
         </div>
         <MyDoubts email = {email} />
     </div>
