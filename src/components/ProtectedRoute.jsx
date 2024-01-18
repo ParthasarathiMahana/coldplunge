@@ -26,7 +26,7 @@ const ProtectedRoute = () => {
           // debouncedNavigate('/')
           // console.log(myuser);
           setUserEmail(myuser.email);
-          const emailRegex = /@gmail\.community$/;
+          const emailRegex = /@kalvium\.community$/;
           const isValid = emailRegex.test(userEmail);
           if(isValid){
             setIsMentor(false)

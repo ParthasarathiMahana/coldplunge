@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { db } from '../firebase/config'
 import { doc, setDoc } from 'firebase/firestore'
@@ -18,13 +18,14 @@ const ReplyForm = (props) => {
         }
         console.log(activeDoubtID);
         const docRef = doc(db, "doubts", activeDoubtID)
+        props.data.setVisibility('none')
         await setDoc(docRef, {answer: reply}, {merge: true})
         dispatch(doubtActions.addAnswer({id: activeDoubtID, reply}))
         setReply('')
     }
 
   return (
-    <div style={{display:props.visibility}} className={styles.formContainer}>
+    <div style={{display:props.data.visibility}} className={styles.formContainer}>
       {/* <input type="text" value={reply} onChange={(e)=>setReply(e.target.value)}/> */}
       <textarea value={reply} onChange={(e)=>setReply(e.target.value)}></textarea>
       <button onClick={handleClickAnswer}>Answer</button>

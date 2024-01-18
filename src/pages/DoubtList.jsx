@@ -82,7 +82,7 @@ const DoubtList = () => {
                         </div>
                     )
                 })}
-                <ReplyForm visibility = {visibility}/>
+                <ReplyForm data = {{visibility:visibility, setVisibility:setVisibility}}/>
             </div>
         </div>
     </div>

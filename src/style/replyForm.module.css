@@ -1,11 +1,12 @@
 .formContainer{
+   display: flex;
    flex-direction: column;
-   height: 50Vh;
+   height: 40Vh;
    align-items: center;
    position: relative;
    top: -5rem;
-   width: 40vw;
-   margin-left: 25vw;
+   width: 30vw;
+   margin-left: 35vw;
    padding-top: 1rem;
    padding-bottom: 1rem;
    background-color: rgb(145, 145, 145);
@@ -24,7 +25,19 @@
     opacity: 0.9;
 }
 .formContainer textarea{
-    width: 60%;
+    width: 80%;
     height: 90%;
     border: none;
+}
+
+@media screen and (max-width: 600px) and (min-width: 280px){
+    .formContainer{
+        height: 20Vh;
+        width: 90%;
+        margin-left: 5%;
+     }
+     .formContainer button{
+        height: 15%;
+        width: 30%;
+    }
 }
