@@ -27,10 +27,10 @@
     width: 100%;
 }
 .doubtRow div{
-    /* border: 1px solid black; */
     margin-bottom: 0.5rem;
     width: 16%;
     padding: 0.5rem;
+    overflow-wrap: break-word;
 }
 .statBtn{
     border: none;
@@ -58,7 +58,6 @@
     }
     .doubtRow div{
         font-size: 0.7rem;
-        overflow-wrap: break-word;
         width: 20%;
         /* border: 1px solid black; */
     }
