@@ -5,6 +5,7 @@ import { doc, setDoc } from 'firebase/firestore'
 import styles from '../style/replyForm.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { activeDoubtSelector, doubtActions, doubtSelector } from '../redux/reducers/doubtReducers'
+import toast from 'react-hot-toast'
 
 const ReplyForm = (props) => {
     const [reply, setReply] = useState('')
@@ -22,6 +23,7 @@ const ReplyForm = (props) => {
         await setDoc(docRef, {answer: reply}, {merge: true})
         dispatch(doubtActions.addAnswer({id: activeDoubtID, reply}))
         setReply('')
+        toast("Answer added successfully")
     }
 
   return (

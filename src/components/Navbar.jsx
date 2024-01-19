@@ -3,6 +3,7 @@ import styles from '../style/navbar.module.css'
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
 
@@ -20,7 +21,10 @@ const Navbar = () => {
     const auth = getAuth();
     if(auth.currentUser){
       signOut(auth).then(() => {
-        alert("signedout successfully")
+        // alert("signedout successfully")
+        toast("Signed out successfully", {style:{
+          background: "green"
+        },icon: "✅"})
         setAuthStat(false)
         navigate('/student-login')
       }).catch((error) => {

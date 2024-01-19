@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar'
+import toast from 'react-hot-toast';
 
 
 const StudentLogin = () => {
@@ -34,13 +35,19 @@ const StudentLogin = () => {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
-            alert("signedin successfully")
+            // alert("signedin successfully")
+            toast("Signed in successfully", {style:{
+              background: "green"
+            },icon: "✅"})
             navigate('/')
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log("error code:",errorCode, "error message:", errorMessage);
+            // const errorCode = error.code;
+            // const errorMessage = error.message;
+            // console.log("error code:",errorCode, "error message:", errorMessage);
+            toast("Invalid Email or Password", {style:{
+              background: "red"
+            }})
         });
     }
 

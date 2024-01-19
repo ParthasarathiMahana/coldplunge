@@ -5,6 +5,9 @@ import { addDoc, collection, setDoc, doc, getDocs, onSnapshot, deleteDoc} from '
 import {db} from '../firebase/config'
 import { useState } from 'react'
 import MyDoubts from './MyDoubts'
+import toast from 'react-hot-toast'
+import { Icon } from '@chakra-ui/react'
+
 
 const DoubtForm = (props) => {
 
@@ -21,7 +24,10 @@ const DoubtForm = (props) => {
 
         for(let i of arrayOfStates){
           if(i == ''){
-            return alert('you need to enter all the values')
+            return toast("Please enter all the values", {style:{
+              background: "orange"
+            }, icon: "⚠️"})
+            // return alert('you need to enter all the values')
           }
         }
         
@@ -38,6 +44,9 @@ const DoubtForm = (props) => {
           setTopic('')
           setDoubt('')
           setMode('')
+          toast("Doubt raised successfully", {style:{
+            background: "green"
+          },icon: "✅"})
     }
 
     function handleSelectOptionChange(e){
