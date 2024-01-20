@@ -4,6 +4,7 @@ import { useState } from 'react'
 import {getAuth, createUserWithEmailAndPassword} from "firebase/auth"
 import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
+import { toast } from 'react-hot-toast'
 
 const StudentSignupForm = () => {
     const [email, setEmail] = useState('')
@@ -20,14 +21,20 @@ const StudentSignupForm = () => {
         .then((userCredential)=>{
             const user = userCredential.user;
             // use any notification liabrary instead alert
-            alert("registered successfully")
+            // alert("registered successfully")
+            toast("Registered successfully", {style:{
+                background: 'green',
+            }})
             navigate('/student-login')
             // console.log(user);
         })
         .catch((error)=>{
             const errorCode = error.code;
             const errorMessage  = error.messsage;
-            console.error("errorCode",errorCode, "errorMessage",errorMessage);
+            // console.error("errorCode",errorCode, "errorMessage",errorMessage);
+            toast("Got an Error while registering", {style:{
+                background: '#red',
+            }})
         })
         setEmail(''); setName(''); setSquad(''); setPassword(''); setCnfPassword('')
     }

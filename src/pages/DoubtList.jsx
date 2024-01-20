@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar'
 import ReplyForm from '../components/ReplyForm'
 import { doubtActions, doubtSelector } from '../redux/reducers/doubtReducers'
 import { useDispatch, useSelector } from 'react-redux'
+import toast from 'react-hot-toast'
 
 const DoubtList = () => {
 
@@ -37,7 +38,13 @@ const DoubtList = () => {
         const docRef = doc(db, "doubts", allDoubts[index].id)
         try {
             // await updateDoc(docRef, doubtListData[index])
+            let statOfAcknowledgement = allDoubts[index].acknowledgement
             await setDoc(docRef, {acknowledgement: !allDoubts[index].acknowledgement}, {merge: true})
+            if(!statOfAcknowledgement){
+                toast("Acknowledged",{icon: '✅'})
+            }else{
+                toast("Unacknowledged",{icon: '❌'})
+            }
         } catch (e) {
             console.log("Error getting cached document:", e);
         }

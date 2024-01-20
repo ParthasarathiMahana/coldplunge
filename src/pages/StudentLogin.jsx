@@ -42,9 +42,6 @@ const StudentLogin = () => {
             navigate('/')
         })
         .catch((error) => {
-            // const errorCode = error.code;
-            // const errorMessage = error.message;
-            // console.log("error code:",errorCode, "error message:", errorMessage);
             toast("Invalid Email or Password", {style:{
               background: "red"
             }})
