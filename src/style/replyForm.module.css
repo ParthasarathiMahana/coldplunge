@@ -3,8 +3,9 @@
    flex-direction: column;
    height: 40Vh;
    align-items: center;
-   position: relative;
-   top: -30rem;
+   position: fixed;
+   top: 30vh;
+   right: 35vw;
    width: 30vw;
    margin-left: 35vw;
    padding-top: 1rem;
