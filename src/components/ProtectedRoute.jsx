@@ -30,7 +30,7 @@ const ProtectedRoute = () => {
           const isValid = emailRegex.test(userEmail);
           if(isValid){
             setIsMentor(false)
-          }else{
+          }else if(myuser.email === "psm@kalvium.com"){
             setIsMentor(true)
           }
           setIsAuthChecked(true)
