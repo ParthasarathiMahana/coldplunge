@@ -38,19 +38,20 @@ const DoubtForm = (props) => {
             subject,
             topic,
             mode:mode
-          });
-          setBatch('')
-          setSubject('')
-          setTopic('')
-          setDoubt('')
-          setMode('')
-          toast("Doubt raised successfully", {style:{
-            background: "green"
-          },icon: "✅"})
+          }
+        );
+        setBatch('')
+        setSubject('')
+        setTopic('')
+        setDoubt('')
+        setMode('')
+        
+        toast("Doubt raised successfully", {style:{
+          background: "green"
+        },icon: "✅"})
     }
 
     function handleSelectOptionChange(e){
-      console.log(e.target.value);
       setMode(e.target.value)
     }
 

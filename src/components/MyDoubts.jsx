@@ -4,6 +4,7 @@ import { db } from '../firebase/config'
 import { collection, doc, getDoc, onSnapshot } from 'firebase/firestore'
 import { useEffect } from 'react'
 import styles from '../style/myDoubts.module.css'
+import Showstopper from './Showstopper'
 
 const MyDoubts = (props) => {
   const auth = getAuth()
@@ -15,8 +16,7 @@ const MyDoubts = (props) => {
         const tempDoubtList = snapshot.docs.filter((item)=>{
           return item.data().email === props.email
         })
-        const tempDL2 = tempDoubtList.map((item)=>item.data())
-        // console.log(tempDL2);
+        const tempDL2 = tempDoubtList.map((item)=>item)
         setMyDoubtList(tempDL2)
       })
     })
@@ -34,11 +34,12 @@ const MyDoubts = (props) => {
       {mydoubtList.map((item, index)=>{
         return (
           <div key={index} className={styles.doubtRow}>
-            <div className={styles.sub}>{item.subject}</div>
-            <div className={styles.topic}>{item.topic}</div>
-            <div className={styles.doubt}>{item.doubt}</div>
-            <div className={styles.ack}>{item.acknowledgement ? "acknowledged" : "not acknowledged"}</div>
-            <div className={styles.ans} >{item.answer ? item.answer : ""}</div>
+            <div className={styles.sub}>{item.data().subject}</div>
+            <div className={styles.topic}>{item.data().topic}</div>
+            <div className={styles.doubt}>{item.data().doubt}</div>
+            <div className={styles.ack}>{item.data().acknowledgement ? "acknowledged" : "not acknowledged"}</div>
+            <div className={styles.ans} >{item.data().answer ? item.data().answer : ""}</div>
+            <div><Showstopper id = {item.id}/></div>
           </div>
         )
       })}

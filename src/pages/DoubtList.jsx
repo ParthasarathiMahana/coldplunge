@@ -14,12 +14,14 @@ const DoubtList = () => {
     const dispatch = useDispatch();
     const allDoubts = useSelector(doubtSelector);
     const [visibility, setVisibility] = useState('none');
+    // const [notificationAudio, setNotificationAudio] = useState(new Audio('audio/Iphone Original Ringtone Download - MobCup.Com.Co.mp3'))
 
     useEffect(()=>{
         onSnapshot(collection(db, "doubts"), (snapshot)=>{
             const myData = snapshot.docs.map((data)=>{
-                const dateObj = new Date(data.data().date.seconds * 1000 + Math.floor(data.data().date.nanoseconds / 1e6))
-                return {email: data.data().email, 
+                const calculatedDate = data.data().date.seconds * 1000 + Math.floor(data.data().date.nanoseconds / 1e6)
+                const dateObj = new Date(calculatedDate)
+                return {email: data.data().email,
                     date: [dateObj.getHours(), dateObj.getMinutes()],
                     topic: data.data().topic, 
                     doubt: data.data().doubt,
@@ -27,13 +29,43 @@ const DoubtList = () => {
                     id: data.id,
                     acknowledgement: data.data().acknowledgement? data.data().acknowledgement:false}
             })
+            console.log(myData);
             dispatch(doubtActions.addDoubts(myData))
         })
     },[])
 
-    async function handleClickAcknowledge(index){
+    // if('Notification' in window){
+    //     Notification.requestPermission().then((permisiion)=>{
+    //       if(permisiion == "granted"){
+    //         console.log("You clicked the DEAD LOCK Button...");
+    //         new Notification('Hello World!')
+    //       }
+    //     })
+    //   }else{
+    //     alert("Notifications are not supported.")
+    //   }
 
-        console.log(allDoubts);
+    useEffect(()=>{
+        onSnapshot(collection(db, "doubts"), (snapshot)=>{
+            const myData = snapshot.docs.map(async(data)=>{
+                if(data.data().showStopper == true && data.data().mentorNotified == false){
+                    // if('Notification' in window){
+                        Notification.requestPermission().then((permisiion)=>{
+                            new Notification("new show stopper", {
+                                body: `New Showstopper raised by ${data.data().email}, doubt is: ${data.data().doubt}`
+                            });
+                            console.log("DoubtList.jsx: "+`New Showstopper raised by ${data.data().email}, doubt is: ${data.data().doubt}`);
+                        })
+                        const data2 = await updateDoc(doc(db, "doubts", data.id), {"mentorNotified":true})
+                    // }else{
+                    //     alert("Notifications are not supported.")
+                    // }
+                }
+            })
+        })
+    },[])
+
+    async function handleClickAcknowledge(index){
 
         const docRef = doc(db, "doubts", allDoubts[index].id)
         try {
