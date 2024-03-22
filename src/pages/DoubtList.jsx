@@ -14,8 +14,9 @@ const DoubtList = () => {
     const dispatch = useDispatch();
     const allDoubts = useSelector(doubtSelector);
     const [visibility, setVisibility] = useState('none');
-    const notificationAudio = new Audio("audio/Iphone Original Ringtone Download - MobCup.Com.Co.mp3")
+    const notificationAudio = new Audio("/audio/Iphone Original Ringtone Download - MobCup.Com.Co.mp3")
 
+    // for loading all the doubts
     useEffect(()=>{
         onSnapshot(collection(db, "doubts"), (snapshot)=>{
             const myData = snapshot.docs.map((data)=>{
@@ -34,6 +35,7 @@ const DoubtList = () => {
         })
     },[])
 
+    // for notification on new deadLock
     useEffect(()=>{
         onSnapshot(collection(db, "doubts"), (snapshot)=>{
             const myData = snapshot.docs.map(async(data)=>{
