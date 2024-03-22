@@ -14,7 +14,7 @@ const DoubtList = () => {
     const dispatch = useDispatch();
     const allDoubts = useSelector(doubtSelector);
     const [visibility, setVisibility] = useState('none');
-    // const [notificationAudio, setNotificationAudio] = useState(new Audio('audio/Iphone Original Ringtone Download - MobCup.Com.Co.mp3'))
+    const notificationAudio = new Audio("audio/Iphone Original Ringtone Download - MobCup.Com.Co.mp3")
 
     useEffect(()=>{
         onSnapshot(collection(db, "doubts"), (snapshot)=>{
@@ -34,32 +34,32 @@ const DoubtList = () => {
         })
     },[])
 
-    // if('Notification' in window){
-    //     Notification.requestPermission().then((permisiion)=>{
-    //       if(permisiion == "granted"){
-    //         console.log("You clicked the DEAD LOCK Button...");
-    //         new Notification('Hello World!')
-    //       }
-    //     })
-    //   }else{
-    //     alert("Notifications are not supported.")
-    //   }
-
     useEffect(()=>{
         onSnapshot(collection(db, "doubts"), (snapshot)=>{
             const myData = snapshot.docs.map(async(data)=>{
                 if(data.data().showStopper == true && data.data().mentorNotified == false){
-                    // if('Notification' in window){
-                        Notification.requestPermission().then((permisiion)=>{
-                            new Notification("new show stopper", {
-                                body: `New Showstopper raised by ${data.data().email}, doubt is: ${data.data().doubt}`
-                            });
-                            console.log("DoubtList.jsx: "+`New Showstopper raised by ${data.data().email}, doubt is: ${data.data().doubt}`);
-                        })
-                        const data2 = await updateDoc(doc(db, "doubts", data.id), {"mentorNotified":true})
-                    // }else{
-                    //     alert("Notifications are not supported.")
-                    // }
+                    var deadLockNotification;
+                    Notification.requestPermission().then(()=>{
+                        deadLockNotification = new Notification("new show stopper", {
+                            body: `New Showstopper raised by ${data.data().email}, doubt is: ${data.data().doubt}`
+                        });
+                        // notification audio will play along with notification
+                        notificationAudio.play()
+                        // if notification will be closed audio will stop
+                        deadLockNotification.onclose = function() {
+                            notificationAudio.pause()
+                            notificationAudio.currentTime = 0;
+                        };
+                        // if notification will be clicked audio will stop
+                        deadLockNotification.onclick = function() {
+                            notificationAudio.pause();
+                            notificationAudio.currentTime = 0;
+                            deadLockNotification.close();
+                        };
+                        // testing the email and doubt of user
+                        // console.log("DoubtList.jsx: "+`New Showstopper raised by ${data.data().email}, doubt is: ${data.data().doubt}`);
+                    })
+                    const data2 = await updateDoc(doc(db, "doubts", data.id), {"mentorNotified":true})
                 }
             })
         })
